@@ -1,5 +1,6 @@
 package com.klopkov.evgeny.perfectday;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.klopkov.evgeny.perfectday.model.Category;
 import com.klopkov.evgeny.perfectday.model.TaskList;
@@ -40,18 +42,25 @@ public class CategoryFragment extends Fragment {
         mCrimeRecyclerView.setAdapter(mCategoryAdapter);
     }
 
-    private class CategoryHolder extends RecyclerView.ViewHolder {
+    private class CategoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TaskList mCategory;
 
         public CategoryHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.category_item, parent, false));
+            itemView.setOnClickListener(this);
             mTitleTextView = itemView.findViewById(R.id.category_title);
         }
 
         public void bind(TaskList category) {
             mCategory = category;
             mTitleTextView.setText(mCategory.getTitle());
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = TaskListActivity.newIntent(getActivity(), mCategory.getId());
+            startActivity(intent);
         }
     }
 

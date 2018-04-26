@@ -19,7 +19,7 @@ public class Category {
     private Category(Context context) {
         mCategories = new ArrayList<>();
         for (int i = 0; i < 22; i++) {
-            TaskList tl = new TaskList();
+            TaskList tl = new TaskList(context);
             tl.setTitle("LIST #" + i);
             tl.setId(i);
             mCategories.add(tl);
