@@ -1,7 +1,5 @@
 package com.klopkov.evgeny.perfectday.model;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,7 @@ public class TaskList {
     private String mTitle;
     private List<Task> mTaskList;
 
-    TaskList(Context context) {
+    public TaskList() {
         mTaskList = new ArrayList<>();
         for (int i = 0; i < 22; i++) {
             Task task = new Task();
@@ -36,5 +34,13 @@ public class TaskList {
     public TaskList setTitle(String title) {
         mTitle = title;
         return this;
+    }
+
+    public List<Task> getTasks() {
+        return mTaskList;
+    }
+
+    public Task getTask(int id) {
+        return mTaskList.get(id);
     }
 }
