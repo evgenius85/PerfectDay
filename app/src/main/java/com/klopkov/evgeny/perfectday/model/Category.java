@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Category {
     private static Category sCategory;
-    private List<TaskList> mCategories;
+    private List<TaskList> mCategories = new ArrayList<>();
 
     public static Category get(Context context) {
         if (sCategory == null) {
@@ -17,13 +17,12 @@ public class Category {
     }
 
     private Category(Context context) {
-        mCategories = new ArrayList<>();
-        for (int i = 0; i < 22; i++) {
-            TaskList tl = new TaskList();
-            tl.setTitle("LIST #" + i);
-            tl.setId(i);
-            mCategories.add(tl);
-        }
+        mCategories.add(new TaskList("Morning habits", mCategories.size()));
+        mCategories.add(new TaskList("Daily habits", mCategories.size()));
+        mCategories.add(new TaskList("Evening habits", mCategories.size()));
+        mCategories.add(new TaskList("Important", mCategories.size()));
+        mCategories.add(new TaskList("Eat this frogs", mCategories.size()));
+        mCategories.add(new TaskList("Chaos", mCategories.size()));
     }
 
     public List<TaskList> getTaskLists() {

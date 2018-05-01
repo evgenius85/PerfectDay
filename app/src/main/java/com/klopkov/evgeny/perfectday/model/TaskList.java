@@ -8,7 +8,9 @@ public class TaskList {
     private String mTitle;
     private List<Task> mTaskList;
 
-    public TaskList() {
+    public TaskList(String title, int id) {
+        mTitle = title;
+        mId = id;
         mTaskList = new ArrayList<>();
         for (int i = 0; i < 22; i++) {
             Task task = new Task();

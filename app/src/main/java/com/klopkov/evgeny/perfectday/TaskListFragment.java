@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.klopkov.evgeny.perfectday.model.Category;
@@ -20,7 +21,7 @@ public class TaskListFragment extends Fragment {
     private RecyclerView mTaskListRecyclerView;
     private TaskListFragment.TaskListAdapter mTaskListAdapter;
     private TaskList mTasks;
-    int taskListId;
+    private int taskListId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,16 +47,21 @@ public class TaskListFragment extends Fragment {
 
     private class TaskListHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
+        private TextView mReminderTextView;
+        private CheckBox mTaskCheckBox;
         private Task mTask;
 
         public TaskListHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.tasklist_item, parent, false));
             mTitleTextView = itemView.findViewById(R.id.task_title);
+            mReminderTextView = itemView.findViewById(R.id.task_reminder);
+            mTaskCheckBox = itemView.findViewById(R.id.task_checkbox);
         }
 
         public void bind(Task task) {
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
+            mReminderTextView.setText(mTask.getDateFormatted());
         }
     }
 
