@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+import com.klopkov.evgeny.perfectday.fragment.TaskListFragment;
+
 public class TaskListActivity extends SingleFragmentActivity {
-    public static final String EXTRA_TASKLIST_ID = "com.klopkov.evgeny.perfectday.tasklist_id";
+    private static final String EXTRA_TASKLIST_ID = "com.klopkov.evgeny.perfectday.tasklist_id";
 
     public static Intent newIntent(Context packageContext, int taskListId) {
         Intent intent = new Intent(packageContext, TaskListActivity.class);
@@ -15,6 +17,7 @@ public class TaskListActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return new TaskListFragment();
+        int taskListId = (int) getIntent().getSerializableExtra(EXTRA_TASKLIST_ID);
+        return TaskListFragment.newInstance(taskListId);
     }
 }

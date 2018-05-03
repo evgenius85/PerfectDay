@@ -1,8 +1,7 @@
-package com.klopkov.evgeny.perfectday;
+package com.klopkov.evgeny.perfectday.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.klopkov.evgeny.perfectday.R;
+import com.klopkov.evgeny.perfectday.TaskListActivity;
 import com.klopkov.evgeny.perfectday.model.Category;
 import com.klopkov.evgeny.perfectday.model.TaskList;
 
@@ -20,11 +20,6 @@ import java.util.List;
 public class CategoryFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CategoryAdapter mCategoryAdapter;
-
-/*    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,7 +74,6 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CategoryHolder holder, int position) {
-            // TODO что это за метод get у mCategories?
             TaskList category = mCategories.get(position);
             holder.bind(category);
         }

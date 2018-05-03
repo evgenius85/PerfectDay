@@ -1,5 +1,6 @@
-package com.klopkov.evgeny.perfectday;
+package com.klopkov.evgeny.perfectday.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.klopkov.evgeny.perfectday.R;
+import com.klopkov.evgeny.perfectday.TaskActivity;
+import com.klopkov.evgeny.perfectday.TaskListActivity;
 import com.klopkov.evgeny.perfectday.model.Category;
 import com.klopkov.evgeny.perfectday.model.Task;
 import com.klopkov.evgeny.perfectday.model.TaskList;
@@ -18,16 +22,26 @@ import com.klopkov.evgeny.perfectday.model.TaskList;
 import java.util.List;
 
 public class TaskListFragment extends Fragment {
+    public static final String ARG_TASKLIST_ID = "com.klopkov.evgeny.perfectday.fragment.tasklist_id";
     private RecyclerView mTaskListRecyclerView;
     private TaskListFragment.TaskListAdapter mTaskListAdapter;
-    private TaskList mTasks;
+    private TaskList mTaskList;
     private int taskListId;
+
+    public static TaskListFragment newInstance(int taskListId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_TASKLIST_ID, taskListId);
+
+        TaskListFragment fragment = new TaskListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        taskListId = (int) getActivity().getIntent().getSerializableExtra(TaskListActivity.EXTRA_TASKLIST_ID);
-        mTasks = Category.get(getActivity()).getTaskList(taskListId);
+        taskListId = (int) getArguments().getSerializable(ARG_TASKLIST_ID);
+        mTaskList = Category.get(getActivity()).getTaskList(taskListId);
     }
 
     @Override
@@ -40,19 +54,20 @@ public class TaskListFragment extends Fragment {
     }
 
     private void updateUI() {
-        List<Task> tasks = mTasks.getTasks();
+        List<Task> tasks = mTaskList.getTasks();
         mTaskListAdapter = new TaskListAdapter(tasks);
         mTaskListRecyclerView.setAdapter(mTaskListAdapter);
     }
 
-    private class TaskListHolder extends RecyclerView.ViewHolder {
+    private class TaskListHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mReminderTextView;
         private CheckBox mTaskCheckBox;
         private Task mTask;
 
-        public TaskListHolder(LayoutInflater inflater, ViewGroup parent) {
+        TaskListHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.tasklist_item, parent, false));
+            itemView.setOnClickListener(this);
             mTitleTextView = itemView.findViewById(R.id.task_title);
             mReminderTextView = itemView.findViewById(R.id.task_reminder);
             mTaskCheckBox = itemView.findViewById(R.id.task_checkbox);
@@ -62,6 +77,14 @@ public class TaskListFragment extends Fragment {
             mTask = task;
             mTitleTextView.setText(mTask.getTitle());
             mReminderTextView.setText(mTask.getDateFormatted());
+            //TODO implement CheckBox
+        }
+
+        @Override
+        public void onClick(View view) {
+//            Intent intent = TaskActivity.newIntent(getActivity(), mTask.getId());
+            Intent intent = TaskActivity.newIntent(getActivity(), mTask.getId(), taskListId);
+            startActivity(intent);
         }
     }
 
