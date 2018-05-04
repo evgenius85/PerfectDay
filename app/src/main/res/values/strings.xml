@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PerfectDay</string>
+    <string name="add_task">Add new task</string>
+    <string name="add_category">Add new category</string>
+    <string name="about">About</string>
+    <string name="task_title_hint">Enter the title, please</string>
+    <string name="task_reminder_text">When should I remind you about this?</string>
 </resources>

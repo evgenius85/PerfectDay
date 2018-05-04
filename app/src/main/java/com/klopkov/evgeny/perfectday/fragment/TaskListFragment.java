@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.klopkov.evgeny.perfectday.R;
 import com.klopkov.evgeny.perfectday.TaskActivity;
-import com.klopkov.evgeny.perfectday.TaskListActivity;
 import com.klopkov.evgeny.perfectday.model.Category;
 import com.klopkov.evgeny.perfectday.model.Task;
 import com.klopkov.evgeny.perfectday.model.TaskList;
@@ -53,10 +52,22 @@ public class TaskListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         List<Task> tasks = mTaskList.getTasks();
-        mTaskListAdapter = new TaskListAdapter(tasks);
-        mTaskListRecyclerView.setAdapter(mTaskListAdapter);
+
+        if (mTaskListAdapter == null) {
+            mTaskListAdapter = new TaskListAdapter(tasks);
+            mTaskListRecyclerView.setAdapter(mTaskListAdapter);
+        }
+        else {
+            mTaskListAdapter.notifyDataSetChanged();
+        }
     }
 
     private class TaskListHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -82,7 +93,6 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-//            Intent intent = TaskActivity.newIntent(getActivity(), mTask.getId());
             Intent intent = TaskActivity.newIntent(getActivity(), mTask.getId(), taskListId);
             startActivity(intent);
         }

@@ -2,7 +2,6 @@ package com.klopkov.evgeny.perfectday.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class TaskList {
     private int mId;
@@ -13,9 +12,9 @@ public class TaskList {
         mTitle = title;
         mId = id;
         mTaskList = new ArrayList<>();
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 7; i++) {
             Task task = new Task();
-            task.setTitle("TASK #" + i);
+            task.setTitle("TASK #" + (i + 1));
             task.setId(i);
             mTaskList.add(task);
         }
@@ -45,9 +44,5 @@ public class TaskList {
 
     public Task getTask(int id) {
         return mTaskList.get(id);
-    }
-
-    public static Task getTaskS (UUID uuid) {
-        return TaskList.getTaskS(uuid);
     }
 }

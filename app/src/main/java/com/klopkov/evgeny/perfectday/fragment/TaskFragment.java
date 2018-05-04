@@ -3,44 +3,25 @@ package com.klopkov.evgeny.perfectday.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.klopkov.evgeny.perfectday.R;
 import com.klopkov.evgeny.perfectday.model.Category;
 import com.klopkov.evgeny.perfectday.model.Task;
-import com.klopkov.evgeny.perfectday.model.TaskList;
-
-import java.util.List;
-import java.util.UUID;
 
 public class TaskFragment extends Fragment {
 
-//    public static final String ARG_TASK_UUID = "com.klopkov.evgeny.perfectday.fragment.task_uuid";
     public static final String ARG_TASK_ID = "com.klopkov.evgeny.perfectday.fragment.task_id";
     public static final String ARG_TASKLIST_ID = "com.klopkov.evgeny.perfectday.fragment.tasklist_id";
     private Task mTask;
     private EditText mTitleEditText;
-
-    /*@Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        UUID taskUUId = (UUID) getArguments().getSerializable(ARG_TASK_UUID);
-        mTask =
-    }
-
-    public static TaskFragment newInstance(UUID taskUUID) {
-
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_TASK_UUID, taskUUID);
-
-        TaskFragment fragment = new TaskFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }*/
+    private TextView mReminderTextView;
 
     public static TaskFragment newInstance(int taskId, int taskListId) {
         Bundle args = new Bundle();
@@ -65,6 +46,24 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.task_fragment, container, false);
         mTitleEditText = view.findViewById(R.id.task_title_edittext);
         mTitleEditText.setText(mTask.getTitle());
+        mTitleEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mTask.setTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mReminderTextView = view.findViewById(R.id.task_reminder_time);
+        mReminderTextView.setText(mTask.getDateFormatted());
         return view;
     }
 }

@@ -12,17 +12,29 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:hint="Enter the title, please"
+        android:hint="@string/task_title_hint"
         />
 
     <TextView
-        android:text="When should I remind you about this?"
+        android:text="@string/task_reminder_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="4dp"/>
 
-    <TimePicker
+
+    <EditText
+        android:id="@+id/task_reminder_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="datetime"
+        android:padding="4dp"/>
 
-    </TimePicker>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        />
 </LinearLayout>
